@@ -69,6 +69,7 @@ web_modules/
 .env
 .env.*
 !.env.example
+!.env.test
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -124,6 +125,7 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+/.vscode
 
 # yarn v3
 .pnp.*
@@ -133,6 +135,17 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/build
 
 # Vite logs files
 vite.config.js.timestamp-*
