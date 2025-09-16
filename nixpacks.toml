@@ -1,2 +1,2 @@
 [phases.setup]
-NIXPACKS_NODE_VERSION = "23"
+NIXPACKS_NODE_VERSION = "22"
