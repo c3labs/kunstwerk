@@ -105,7 +105,7 @@
 
 <!-- <div style:opacity={hasMoved ? 1 : 0} class="cursor{isGrab ? " grab" : ""}{isPointer ? " pointer" : ""}"> -->
 <div class="cursor{isGrab ? " grab" : ""}{isPointer ? " pointer" : ""}{isActive ? " is-visible" : ""}">
-	<div bind:this={inner} class="inner _transition-transform _duration-200 _border _text-base">
+	<div bind:this={inner} class="inner">
 		<div class="label">{cursorType}:{Math.round(scrollProgress*100) + '%'}</div>
 	</div>
     <div bind:this={outer} class="outer">
