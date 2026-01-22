@@ -9,8 +9,8 @@
 <header class="fixed flex p-5 justify-between w-full z-50 text-dark-raisin hover:text-white transition-colors will-change-transform duration-250">
     <!-- <a href="/" class="is-active logo h-25" aria-current="page"> {@html logo} </a> -->
     <!-- LOGO SECTION HERE -->
-    <button onclick={() => navigate('/')} aria-label="werk d - Logo - back to home" class="inline-block h-25">
-        {@html logo}
+    <button onclick={() => navigate('/')} aria-label="werk d - Logo - back to home" class="h-25 w-42">
+        {@html logo}        
     </button>
     <button onclick={() => uiobserver.toggleNav()} class="{uiobserver.navstate ? 'is-menu' : ''} menu-button">
         <div class="label font-menu text-2xl">{uiobserver.navstate ? 'Close' : 'Menu'}</div>
