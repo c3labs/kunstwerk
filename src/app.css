@@ -21,6 +21,7 @@
     /* --radius-special: 0.9rem; */
 
     --font-f-primary: 'JetBrains Mono Variable', monospace;
+    --font-f-secodary: 'JetBrains Mono Variable', monospace;
     --font-regular: 'Inter Variable', sans-serif;
     --font-menu: 'Inter Variable', sans-serif;
     --font-headline: 'Inter Variable', sans-serif;
@@ -116,6 +117,15 @@
         position: fixed;
     }
 
+    .main {
+        inset: 0;
+        overflow: hidden;
+        /* overflow-y: auto; */
+        position: absolute;
+        z-index: 2;
+        border-right: 1px solid var(--color-neutral-700);
+    }
+
     main:before {
         background: #00000080;
         content: "";
@@ -132,16 +142,17 @@
         pointer-events: all
     }
 
-    .lenis-smooth {
-        scroll-behavior: auto
-    }
-
-    .scrollwrap {
+    .scroll {
+        background-color: var(--color-dark-raisin);
         inset: 0;
         overflow: hidden;
         overflow-y: auto;
         position: fixed;
         width: 100%;
+    }
+
+    .lenis-smooth {
+        scroll-behavior: auto
     }
 
     @media(max-width: 600px) {

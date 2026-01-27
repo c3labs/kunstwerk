@@ -2,18 +2,17 @@
 	// import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import logo from '$lib/assets/images/logo/werk_d.logo.svg?raw';
-	import { uiobserver, navigate } from '$lib/actions/uiobserver.svelte'
-
+	import { uiobserver, navigate } from '$lib/actions/uiobserver.svelte';
 </script>
 
 <header class="fixed flex p-5 justify-between w-full z-50 text-dark-raisin hover:text-white transition-colors will-change-transform duration-250">
-    <!-- <a href="/" class="is-active logo h-25" aria-current="page"> {@html logo} </a> -->
     <!-- LOGO SECTION HERE -->
     <button onclick={() => navigate('/')} aria-label="werk d - Logo - back to home" class="h-25 w-42">
         {@html logo}        
     </button>
+    <!-- MENU SECTION HERE -->
     <button onclick={() => uiobserver.toggleNav()} class="{uiobserver.navstate ? 'is-menu' : ''} menu-button">
-        <div class="label font-menu text-2xl">{uiobserver.navstate ? 'Close' : 'Menu'}</div>
+        <div class="font-menu md:text-3xl xl:text-2xl text-4xl">{uiobserver.navstate ? 'Close' : 'Menu'}</div>
         <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="cross-svg w-5">
             <path d="M12.0005 5.49894V6.99894H8.50047V5.49894H12.0005Z" fill="currentcolor"></path>
             <path d="M3.5 5.49756V6.99756L0 6.99756L6.55637e-08 5.49756L3.5 5.49756Z" fill="currentcolor"></path>

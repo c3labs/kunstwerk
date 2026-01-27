@@ -1,6 +1,9 @@
 <script lang="ts">
 
 	import { onMount } from 'svelte';
+    import { uiobserver, onMouseEnterPointer, onMouseLeavePointer, onMouseEnterGrab, onMouseLeaveGrab } from '$lib/actions/uiobserver.svelte';
+
+    import Lenis from "lenis";
     import gsap from 'gsap';
 	import { SplitText } from 'gsap/SplitText';
     import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,6 +13,7 @@
 
     let split:SplitText
     let animation:GSAPTween;
+    let myScrollTrigger:ScrollTrigger;
 
 
 
@@ -39,7 +43,7 @@
         
         ScrollTrigger.defaults({ markers: import.meta.env.MODE === 'development' });
 
-        let myScrollTrigger = ScrollTrigger.create({
+        myScrollTrigger = ScrollTrigger.create({
             trigger: '.links',
             scroller: '#main',
             // start: 'bottom',
@@ -63,11 +67,62 @@
     }
 
     onMount(() => {
+
+        		// Initialize Lenis
+		const lenis = new Lenis({
+			wrapper: document.getElementById('main')!,
+			autoResize: true,
+			// autoRaf: true,
+		});
+
+		lenis.on('scroll', ScrollTrigger.update);
+
+		lenis.on('scroll', ({ progress }) => uiobserver.scrollProgress = progress);
+
+		gsap.ticker.add((time) => {
+			lenis.raf(time * 1000);
+		});
+
+		gsap.ticker.lagSmoothing(0);
+
         setup();
+        lenis.scrollTo(0, {immediate: true});
         // window.addEventListener("resize", setup);
+
+        let pointerElements: Element[] = [
+			...document.querySelectorAll("button,a,input,label,[data-cursor='pointer']")
+		];
+
+		pointerElements.forEach((element) => {
+			element.addEventListener('mouseenter', onMouseEnterPointer, false);
+			element.addEventListener('mouseleave', onMouseLeavePointer, false);
+		});
+
+		let grabElements: Element[] = [
+			...document.querySelectorAll("button,a,input,label,[data-cursor='pointer']")
+		];
+
+		grabElements.forEach((element) => {
+			element.addEventListener('mouseenter', onMouseEnterGrab, false);
+			element.addEventListener('mouseleave', onMouseLeaveGrab, false);
+		});
+
         console.log("onMount: +page");
 
-        return () => window.removeEventListener("resize", setup);
+        return () => {
+            // remove all eventListeners and kill lenis and scrolltrigger
+            pointerElements.forEach((element) => {
+				element.removeEventListener('mouseenter', onMouseEnterPointer, false);
+				element.removeEventListener('mouseleave', onMouseLeavePointer, false);
+			});
+			grabElements.forEach((element) => {
+				element.removeEventListener('mouseenter', onMouseEnterGrab, false);
+				element.removeEventListener('mouseleave', onMouseLeaveGrab, false);
+			});
+            window.removeEventListener("resize", setup);
+            myScrollTrigger.kill();
+            lenis.destroy();
+        }
     });
     
 </script>
@@ -78,7 +133,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div id="lines" class="splitter bg-pepper-shaded _bg-neutral-700 _absolute relative pt-[50vh] h-[200vh] font-headline regular font-extralight text-5xl text-neutral-100">
-    DEVELOPMENT <button class="link p-xs" on:click={handleLinesClick}>Server</button> SERVER v.03</div>
+    DEVELOPMENT <button class="link p-xs" on:click={handleLinesClick}>CLICKTEST</button> SERVER v.03</div>
 <div class="_absolute relative pt-10 bg-dark-raisin">
 		<div class="links">
 			<a class="link p-xs" href="https://twitter.com/studiofreight">Twitter</a>

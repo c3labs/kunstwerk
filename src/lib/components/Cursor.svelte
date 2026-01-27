@@ -1,7 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-	import gsap from 'gsap';
+	import { uiobserver, onMouseEnterPointer, onMouseLeavePointer, onMouseEnterGrab, onMouseLeaveGrab } from '$lib/actions/uiobserver.svelte';
 
+    import gsap from 'gsap';
     import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 
     let inner: HTMLDivElement;
@@ -11,13 +12,13 @@
     let isActive = $state(true);
 	let hasMoved = false;
 
-    let { scrollProgress, cursorType } = $props();
+    let { cursorType } = $props();
 
     gsap.registerPlugin(DrawSVGPlugin);
 
     // gsap.from('#progressor', { duration: 5.1, drawSVG: 0 });
     $effect(() => {
-        gsap.to('#progressor', { duration: 0.5, drawSVG: Math.round(scrollProgress*100) + '%' });
+        gsap.to('#progressor', { duration: 0.5, drawSVG: Math.round(uiobserver.scrollProgress*100) + '%' });
     })
 
     const onMouseMove = ({ clientX, clientY }: { clientX: number; clientY: number }) => {
@@ -45,56 +46,43 @@
         isActive = true;
     }
 
-    const onMouseEnterPointer = () => {
-		isPointer = true;
-	};
-	const onMouseLeavePointer = () => {
-		isPointer = false;
-	};
-
-	const onMouseEnterGrab = () => {
-		isGrab = true;
-	};
-	const onMouseLeaveGrab = () => {
-		isGrab = false;
-	};
-
     onMount(() => {
-        scrollProgress = 0;
-		document.documentElement.classList.add('has-custom-cursor');
+        // scrollProgress = 0;
+        uiobserver.scrollProgress = 0;
+		// document.documentElement.classList.add('has-custom-cursor');
 
-		let pointerElements: Element[] = [
-			...document.querySelectorAll("button,a,input,label,[data-cursor='pointer']")
-		];
+		// let pointerElements: Element[] = [
+		// 	...document.querySelectorAll("button,a,input,label,[data-cursor='pointer']")
+		// ];
 
-		pointerElements.forEach((element) => {
-			element.addEventListener('mouseenter', onMouseEnterPointer, false);
-			element.addEventListener('mouseleave', onMouseLeavePointer, false);
-		});
+		// pointerElements.forEach((element) => {
+		// 	element.addEventListener('mouseenter', onMouseEnterPointer, false);
+		// 	element.addEventListener('mouseleave', onMouseLeavePointer, false);
+		// });
 
-		let grabElements: Element[] = [
-			...document.querySelectorAll("button,a,input,label,[data-cursor='pointer']")
-		];
+		// let grabElements: Element[] = [
+		// 	...document.querySelectorAll("button,a,input,label,[data-cursor='pointer']")
+		// ];
 
-		grabElements.forEach((element) => {
-			element.addEventListener('mouseenter', onMouseEnterGrab, false);
-			element.addEventListener('mouseleave', onMouseLeaveGrab, false);
-		});
+		// grabElements.forEach((element) => {
+		// 	element.addEventListener('mouseenter', onMouseEnterGrab, false);
+		// 	element.addEventListener('mouseleave', onMouseLeaveGrab, false);
+		// });
 
         console.log("onMount: Cursor");
 
 		return () => {
-			document.documentElement.classList.remove('has-custom-cursor');
+			// document.documentElement.classList.remove('has-custom-cursor');
 
-			pointerElements.forEach((element) => {
-				element.removeEventListener('mouseenter', onMouseEnterPointer, false);
-				element.removeEventListener('mouseleave', onMouseLeavePointer, false);
-			});
+			// pointerElements.forEach((element) => {
+			// 	element.removeEventListener('mouseenter', onMouseEnterPointer, false);
+			// 	element.removeEventListener('mouseleave', onMouseLeavePointer, false);
+			// });
 
-			grabElements.forEach((element) => {
-				element.removeEventListener('mouseenter', onMouseEnterGrab, false);
-				element.removeEventListener('mouseleave', onMouseLeaveGrab, false);
-			});
+			// grabElements.forEach((element) => {
+			// 	element.removeEventListener('mouseenter', onMouseEnterGrab, false);
+			// 	element.removeEventListener('mouseleave', onMouseLeaveGrab, false);
+			// });
 		};
 	});
 
@@ -104,9 +92,9 @@
 <svelte:document on:mouseenter={onMouseEnterWindow} on:mouseleave={onMouseLeaveWindow} />
 
 <!-- <div style:opacity={hasMoved ? 1 : 0} class="cursor{isGrab ? " grab" : ""}{isPointer ? " pointer" : ""}"> -->
-<div class="cursor{isGrab ? " grab" : ""}{isPointer ? " pointer" : ""}{isActive ? " is-visible" : ""}">
+<div class="cursor{uiobserver.isGrab ? " grab" : ""}{uiobserver.isPointer ? " pointer" : ""}{isActive  && !uiobserver.navstate ? " is-visible" : ""}">
 	<div bind:this={inner} class="inner">
-		<div class="label">{cursorType}:{Math.round(scrollProgress*100) + '%'}</div>
+		<div class="label">{cursorType}:{Math.round(uiobserver.scrollProgress*100) + '%'}</div>
 	</div>
     <div bind:this={outer} class="outer">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="progress">
