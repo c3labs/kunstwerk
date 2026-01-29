@@ -5,13 +5,13 @@
 	import { uiobserver, navigate } from '$lib/actions/uiobserver.svelte';
 </script>
 
-<header class="fixed flex p-5 justify-between w-full z-50 text-dark-raisin hover:text-white transition-colors will-change-transform duration-250">
+<header class="header {uiobserver.navstate ? 'is-menu' : ''} _fixed _flex _p-5 _justify-between _w-full _z-50 text-dark-raisin hover:text-white transition-colors will-change-transform duration-250">
     <!-- LOGO SECTION HERE -->
-    <button onclick={() => navigate('/')} aria-label="werk d - Logo - back to home" class="h-25 w-42">
+    <button onclick={() => navigate('/')} aria-label="werk d - Logo - back to home" class="logo h-25 w-42">
         {@html logo}        
     </button>
     <!-- MENU SECTION HERE -->
-    <button onclick={() => uiobserver.toggleNav()} class="{uiobserver.navstate ? 'is-menu' : ''} menu-button">
+    <button onclick={() => uiobserver.toggleNav()} class="menu-button">
         <div class="font-menu md:text-3xl xl:text-2xl text-4xl">{uiobserver.navstate ? 'Close' : 'Menu'}</div>
         <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="cross-svg w-5">
             <path d="M12.0005 5.49894V6.99894H8.50047V5.49894H12.0005Z" fill="currentcolor"></path>
@@ -24,6 +24,48 @@
 
 <style>
 
+    .header {
+        display: flex;
+        font-family: var(--font-menu);
+        inset: 0 0 auto;
+        justify-content: space-between;
+        pointer-events: none;
+        position: fixed;
+        z-index: 50
+    }
+
+    @media(max-width: 600px) {
+        .header {
+            padding:1.2rem
+        }
+    }
+
+    @media(min-width: 601px) {
+        .header {
+            padding:1.6rem
+        }
+    }
+    .header.is-light {
+        color: var(--color-dark-raisin)
+    }
+
+    .logo {
+        pointer-events: auto;
+        transition: color .25s linear
+    }
+
+    @media(max-width: 600px) {
+        .is-menu .logo {
+            color: var(--color-light)
+        }
+    }
+
+    @media(min-width: 601px) {
+        .is-menu .logo {
+            color: var(--color-light)
+        }
+    }
+
     .menu-button {
         align-items: center;
         display: flex;
@@ -33,7 +75,7 @@
         transition: color .25s linear
     }
 
-    .is-menu.menu-button {
+    .is-menu .menu-button {
         color: var(--color-light)
     }
 

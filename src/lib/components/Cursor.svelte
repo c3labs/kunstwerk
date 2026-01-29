@@ -111,7 +111,7 @@
 
     .cursor {
         align-items: center;
-        color: var(--color-dark-raisin); /* dynamisch zu setzen je nach Bereich */
+        color: var(--color-light); /* dynamisch zu setzen je nach Bereich */
         display: flex;
         justify-content: center;
         opacity: 0;

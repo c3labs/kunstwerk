@@ -133,49 +133,24 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div id="lines" class="splitter bg-pepper-shaded _bg-neutral-700 _absolute relative pt-[50vh] h-[200vh] font-headline regular font-extralight text-5xl text-neutral-100">
-    DEVELOPMENT <button class="link p-xs" on:click={handleLinesClick}>CLICKTEST</button> SERVER v.03</div>
+    EINZIGARTIG <button class="link p-xs" on:click={handleLinesClick}>INDIVIDUELLE</button> OBERFLÄCHEN</div>
 <div class="_absolute relative pt-10 bg-dark-raisin">
 		<div class="links">
-			<a class="link p-xs" href="https://twitter.com/studiofreight">Twitter</a>
-			<a class="link p-xs" href="https://github.com/studio-freight">GitHub</a>
-			<a class="link p-xs" href="https://awwwards.com/studiofreight">Awwwards</a>
-			<a class="link p-xs" href="https://studiofreight.com">Website</a>
-			<a class="link p-xs" href="https://darkroom.studiofreight.com">Darkroom</a>
+			<a class="link p-xs" href="https://twitter.com/studiofreight">Link A</a>
+			<a class="link p-xs" href="https://github.com/studio-freight">Link B</a>
+			<a class="link p-xs" href="https://awwwards.com/studiofreight">Link C</a>
+			<a class="link p-xs" href="https://studiofreight.com">Another Link</a>
+			<a class="link p-xs" href="https://darkroom.studiofreight.com">Last One</a>
 		</div>
 		<p class="p-xs tm">
-			<span>©</span>
-			{new Date().getFullYear()} c3labs
+			<span>© </span>
+			{new Date().getFullYear()} c3labs | DEVELOPMENT SERVER v.04
 		</p>
 </div>
 
 <!-- <style>
 
-    import 'lenis/dist/lenis.css'
 
-    html.lenis,
-    html.lenis body {
-    height: auto;
-    }
-
-    .lenis:not(.lenis-autoToggle).lenis-stopped {
-    overflow: clip;
-    }
-
-    .lenis [data-lenis-prevent],
-    .lenis [data-lenis-prevent-wheel],
-    .lenis [data-lenis-prevent-touch] {
-    overscroll-behavior: contain;
-    }
-
-    .lenis.lenis-smooth iframe {
-    pointer-events: none;
-    }
-
-    .lenis.lenis-autoToggle {
-    transition-property: overflow;
-    transition-duration: 1ms;
-    transition-behavior: allow-discrete;
-    }
 </style> -->
 
 
